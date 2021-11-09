@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const Workout = require('./models/Workout.js');
 
 const PORT = process.env.PORT || 3000
 
@@ -14,7 +15,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // create connection via mongoose with Mongo database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/FitnesTracker", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workouts", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology:true,
@@ -23,6 +24,18 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/FitnesTracker",
 
 // routes
 app.use(require("./public/api.js"));
+// route to create new workout
+app.post("/api/workouts", ({ body }, res) => {
+    const workout = new Workout(body);
+      
+    Workout.create(workout)
+      .then(dbWorkout => {
+        res.json(dbWorkout);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  });
 
 // listener for server
 app.listen(PORT, () => {
