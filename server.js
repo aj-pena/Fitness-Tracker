@@ -24,6 +24,9 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workouts", {
 
 // routes
 app.use(require("./public/api.js"));
+// err: requires use of middleware,at api.js-> const router = require('express').Router()?
+
+
 // route to create new workout
 app.post("/api/workouts", ({ body }, res) => {
     const workout = new Workout(body);
