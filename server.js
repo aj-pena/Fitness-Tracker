@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const Workout = require('./models/Workout.js');
+const path = require('path');
 
 const PORT = process.env.PORT || 3000
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // create connection via mongoose with Mongo database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workouts", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology:true,
@@ -38,7 +39,16 @@ app.post("/api/workouts", ({ body }, res) => {
       .catch(err => {
         res.json(err);
       });
-  });
+  }
+);
+
+  // route to get excercises.html
+
+app.get("/exercise", (req, res) => {
+    res.sendFile(path.join(__dirname,'./public','exercise.html'))    
+  }
+);
+
 
 // listener for server
 app.listen(PORT, () => {
