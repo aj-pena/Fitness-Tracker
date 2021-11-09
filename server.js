@@ -41,14 +41,13 @@ app.post("/api/workouts", ({ body }, res) => {
       });
   }
 );
-
   // route to get excercises.html
-
 app.get("/exercise", (req, res) => {
     res.sendFile(path.join(__dirname,'./public','exercise.html'))    
   }
 );
-
+// route to create new exercise
+app.post()
 
 // listener for server
 app.listen(PORT, () => {
