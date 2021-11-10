@@ -1,5 +1,7 @@
 const router = require('express').Router();
+const Workout = require('../models/Workout');
 
+// route to create new workout
 router.post("/workouts", ({ body }, res) => {
     const workout = new Workout(body);
       
@@ -28,7 +30,7 @@ router.post("/workouts/:id", ({ body }, res) => {
 }
 );
 
-router.get('/workouts/range')
+// router.get('/workouts/range', )
 
 
 module.exports = router;

@@ -1,7 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const Workout = require('./models/Workout.js');
 const path = require('path');
 const routes = require('./controllers')
 
@@ -37,7 +36,6 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
 //  /api/workouts/range   (getWorkoutsInRange)
 
 
-// route to create new workout
 
 
 // listener for server
