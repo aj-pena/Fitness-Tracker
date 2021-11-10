@@ -23,7 +23,7 @@ app.get("/exercise", (req, res) => {
 );
 
 // create connection via mongoose with Mongo database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology:true,
