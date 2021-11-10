@@ -3,17 +3,25 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const Workout = require('./models/Workout.js');
 const path = require('path');
+const routes = require('./controllers')
 
 const PORT = process.env.PORT || 3000
 
 const app = express();
-
+// middleware
 app.use(logger('dev'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static("public"));
+app.use(routes); 
+
+  // route to get excercises.html
+app.get("/exercise", (req, res) => {
+  res.sendFile(path.join(__dirname,'./public','exercise.html'))    
+}
+);
 
 // create connection via mongoose with Mongo database
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
@@ -24,30 +32,13 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
 });
 
 // routes
-app.use(require("./public/api.js"));
-// err: requires use of middleware,at api.js-> const router = require('express').Router()?
+//  /api/workouts   (getLastWorkout, CreateWorkout)
+//  /api/workouts/:id   (addExercise)
+//  /api/workouts/range   (getWorkoutsInRange)
 
 
 // route to create new workout
-app.post("/api/workouts", ({ body }, res) => {
-    const workout = new Workout(body);
-      
-    Workout.create(workout)
-      .then(dbWorkout => {
-        res.json(dbWorkout);
-      })
-      .catch(err => {
-        res.json(err);
-      });
-  }
-);
-  // route to get excercises.html
-app.get("/exercise", (req, res) => {
-    res.sendFile(path.join(__dirname,'./public','exercise.html'))    
-  }
-);
-// route to create new exercise
-app.post()
+
 
 // listener for server
 app.listen(PORT, () => {
