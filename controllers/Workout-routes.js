@@ -39,18 +39,17 @@ router.get("/workouts", ({ body }, res) => {
 
 
 // route to create new exercise
-router.post("/workouts/:id", ({ body }, res) => {
-  const workout = new Workout(body);
-    
-  Workout.create(workout)
-    .then(dbWorkout => {
-      res.json(dbWorkout);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-}
-);
+router.put("/workouts/:id", ({ body, params }, res) => {
+  Workout.findByIdAndUpdate(params.id, {
+    $push: {exercises: body}
+  })
+  .then(() => res.send('Exercise added!'))
+  .catch((err) => {
+    console.log(err);
+    res.send(err);    
+  })
+  
+});
 
 // router.get('/workouts/range', )
 
