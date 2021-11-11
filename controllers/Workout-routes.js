@@ -3,7 +3,7 @@ const Workout = require('../models/Workout');
 
 // route to create new workout
 router.post("/workouts", ({ body }, res) => {
-  console.log("workouts work")
+  console.log("Request to create a new workout received")
       
     Workout.create({})
       .then(dbWorkout => {
@@ -15,9 +15,9 @@ router.post("/workouts", ({ body }, res) => {
   }
 );
 
-
+// route to get the last workout
 router.get("/workouts", ({ body }, res) => {
-  console.log("workouts work")
+  console.log("Request to get last workout received")
       
     Workout.aggregate([
     {
@@ -51,7 +51,18 @@ router.put("/workouts/:id", ({ body, params }, res) => {
   
 });
 
-// router.get('/workouts/range', )
+//route to get the last seven workouts stats 
+
+// router.get('/workouts/range', (req, res) => {
+//   // console.log(req);
+//   // console.log(res);
+//   Workout.aggregate
+//   // .then()
+//   // .catch((err)=>{
+//   //   console.log(err);
+//   //   res.send(err);
+//   // })
+// })
 
 
 module.exports = router;

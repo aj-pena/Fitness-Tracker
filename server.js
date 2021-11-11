@@ -22,6 +22,12 @@ app.get("/exercise", (req, res) => {
 }
 );
 
+// route to get stats.html
+app.get("/stats", (req, res) => {
+  res.sendFile(path.join(__dirname,'./public','stats.html'))    
+}
+);
+
 // create connection via mongoose with Mongo database
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
