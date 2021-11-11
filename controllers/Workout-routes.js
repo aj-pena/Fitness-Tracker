@@ -53,16 +53,25 @@ router.put("/workouts/:id", ({ body, params }, res) => {
 
 //route to get the last seven workouts stats 
 
-// router.get('/workouts/range', (req, res) => {
-//   // console.log(req);
-//   // console.log(res);
-//   Workout.aggregate
-//   // .then()
-//   // .catch((err)=>{
-//   //   console.log(err);
-//   //   res.send(err);
-//   // })
-// })
+router.get('/workouts/range', (req, res) => {
+  
+  Workout.aggregate([
+    {
+      $addFields:{
+        totalDuration:{
+          $sum:'$exercises.duration',
+        }
+      }
+    }
+    ])
+      .then(dbWorkout => {
+        console.log(dbWorkout);
+        res.json(dbWorkout);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+})
 
 
 module.exports = router;
